@@ -1,0 +1,24 @@
+{
+  "name": "projeto-nextjs-ssr",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build --turbopack",
+    "build:clean": "rm -rf .next && npm run build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "next": "15.5.1",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "dotenv": "^17.2.1",
+    "eslint": "^9",
+    "eslint-config-next": "15.5.1"
+  }
+}

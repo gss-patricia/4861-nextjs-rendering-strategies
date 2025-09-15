@@ -1,0 +1,13 @@
+/* 🏷️ BADGE SIMPLES - IGUAL AO ORIGINAL */
+
+.badge {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: #ffc107;
+  color: #333;
+  padding: 0.25rem 0.5rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}

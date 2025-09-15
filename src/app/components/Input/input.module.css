@@ -1,0 +1,38 @@
+/* 📝 COMPONENTE INPUT - DUAS VARIAÇÕES */
+
+.headerInput {
+  padding: 10px;
+  margin-right: 16px;
+  color: #6c757d;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  width: 170px;
+  height: 38px;
+  flex-shrink: 0;
+  border: 1px solid #ddd;
+  transition: all 0.3s ease;
+}
+
+.headerInput:focus {
+  outline: none;
+  border-color: #9353ff;
+  box-shadow: 0 0 0 2px rgba(147, 83, 255, 0.1);
+}
+
+/* 🔍 Search Input (página completa) */
+.searchInput {
+  width: 100%;
+  padding: 1rem 3rem 1rem 1rem;
+  font-size: 1.1rem;
+  border: 2px solid #ddd;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #9353ff;
+  box-shadow: 0 0 0 3px rgba(147, 83, 255, 0.1);
+}
