@@ -12,7 +12,6 @@
 import { createClient } from "@supabase/supabase-js";
 import dotenv from "dotenv";
 
-// 🔧 Carregar especificamente o .env.local
 dotenv.config({ path: ".env.local" });
 
 // 🔑 Configuração Supabase
@@ -29,36 +28,36 @@ if (!supabaseUrl || !supabaseKey) {
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-// 📊 Dados para seed
+// Dados para seed
 const categorias = [
   {
     name: "Camisetas",
-    image_src:
+    imageSrc:
       "https://raw.githubusercontent.com/gss-patricia/meteora-assets/main/categorias/camiseta.png",
   },
   {
     name: "Bolsas",
-    image_src:
+    imageSrc:
       "https://raw.githubusercontent.com/gss-patricia/meteora-assets/main/categorias/bolsa.png",
   },
   {
     name: "Calçados",
-    image_src:
+    imageSrc:
       "https://raw.githubusercontent.com/gss-patricia/meteora-assets/main/categorias/tenis.png",
   },
   {
     name: "Calças",
-    image_src:
+    imageSrc:
       "https://raw.githubusercontent.com/gss-patricia/meteora-assets/main/categorias/calca.png",
   },
   {
     name: "Casacos",
-    image_src:
+    imageSrc:
       "https://raw.githubusercontent.com/gss-patricia/meteora-assets/main/categorias/casaco.png",
   },
   {
     name: "Óculos",
-    image_src:
+    imageSrc:
       "https://raw.githubusercontent.com/gss-patricia/meteora-assets/main/categorias/oculos.png",
   },
 ];
@@ -69,36 +68,36 @@ const produtos = [
     colors: [{ hexa: "#b39628", name: "Mostarda" }],
     price: "R$ 70,00",
     sizes: ["P", "PP", "M", "G", "GG"],
-    image_src:
+    imageSrc:
       "https://raw.githubusercontent.com/gss-patricia/meteora-assets/main/produtos/camiseta-conforto.jpeg",
     description:
       "Multicores e tamanhos. Tecido de algodão 100%, fresquinho para o verão. Modelagem unissex.",
-    category_name: "Camisetas",
-    is_featured: true,
+    categoryName: "Camisetas",
+    isFeatured: true,
   },
   {
     name: "Calça Alfaiataria",
     colors: [{ hexa: "#ebe2c2", name: "Creme" }],
     price: "R$ 180,00",
     sizes: ["P", "PP", "M", "G", "GG"],
-    image_src:
+    imageSrc:
       "https://raw.githubusercontent.com/gss-patricia/meteora-assets/main/produtos/calca-alfaitaria.jpeg",
     description:
       "Snicker casual com solado mais alto e modelagem robusta. Modelo unissex.",
-    category_name: "Calças",
-    is_featured: true,
+    categoryName: "Calças",
+    isFeatured: true,
   },
   {
     name: "Tênis Chunky",
     colors: [{ hexa: "#ffffff", name: "Branco" }],
     price: "R$ 50,00",
     sizes: ["35", "36", "37", "38", "39"],
-    image_src:
+    imageSrc:
       "https://raw.githubusercontent.com/gss-patricia/meteora-assets/main/produtos/tenis-chunky.jpeg",
     description:
       "Snicker casual com solado mais alto e modelagem robusta. Modelo unissex.",
-    category_name: "Calçados",
-    is_featured: true,
+    categoryName: "Calçados",
+    isFeatured: true,
   },
   {
     name: "Jaqueta Jeans",
@@ -109,12 +108,12 @@ const produtos = [
     ],
     price: "R$ 150,00",
     sizes: ["P", "PP", "M", "G", "GG"],
-    image_src:
+    imageSrc:
       "https://raw.githubusercontent.com/gss-patricia/meteora-assets/main/produtos/jaqueta-jeans.jpeg",
     description:
       "Modelo unissex oversized com gola de camurça. Atemporal e autêntica!",
-    category_name: "Casacos",
-    is_featured: false,
+    categoryName: "Casacos",
+    isFeatured: false,
   },
   {
     name: "Óculos Redondo",
@@ -124,24 +123,24 @@ const produtos = [
     ],
     price: "R$ 120,00",
     sizes: ["Único"],
-    image_src:
+    imageSrc:
       "https://raw.githubusercontent.com/gss-patricia/meteora-assets/main/produtos/oculos-redondo.jpeg",
     description:
       "Armação metálica em grafite com lentes arredondadas. Sem erro!",
-    category_name: "Óculos",
-    is_featured: false,
+    categoryName: "Óculos",
+    isFeatured: false,
   },
   {
     name: "Bolsa coringa",
     colors: [{ hexa: "#c65038", name: "Castanho" }],
     price: "R$ 120,00",
     sizes: ["Único"],
-    image_src:
+    imageSrc:
       "https://raw.githubusercontent.com/gss-patricia/meteora-assets/main/produtos/bolsa-coringa.jpeg",
     description:
       "Bolsa camel em couro sintético de alta duração. Ideal para acompanhar você por uma vida!",
-    category_name: "Bolsas",
-    is_featured: false,
+    categoryName: "Bolsas",
+    isFeatured: false,
   },
 ];
 
@@ -149,19 +148,28 @@ const produtos = [
 async function limparDados() {
   console.log("🧹 Limpando dados existentes...");
 
+  // Deletar produtos primeiro (por causa da foreign key)
   const { error: produtosError } = await supabase
     .from("products")
     .delete()
-    .neq("id", "00000000-0000-0000-0000-000000000000"); // Delete all
+    .gte("id", 0); // Delete all records (id >= 0)
 
+  // Deletar categorias
   const { error: categoriasError } = await supabase
     .from("categories")
     .delete()
-    .neq("id", "00000000-0000-0000-0000-000000000000"); // Delete all
+    .gte("id", 0); // Delete all records (id >= 0)
 
-  if (produtosError) console.log("⚠️ Aviso produtos:", produtosError.message);
-  if (categoriasError)
-    console.log("⚠️ Aviso categorias:", categoriasError.message);
+  if (produtosError) {
+    console.log("⚠️ Erro ao limpar produtos:", produtosError.message);
+    throw produtosError;
+  }
+  if (categoriasError) {
+    console.log("⚠️ Erro ao limpar categorias:", categoriasError.message);
+    throw categoriasError;
+  }
+
+  console.log("✅ Dados existentes removidos com sucesso!");
 }
 
 async function inserirCategorias() {
@@ -194,17 +202,17 @@ async function inserirProdutos() {
     categoriaMap[cat.name] = cat.id;
   });
 
-  // Preparar produtos com category_id
+  // Preparar produtos com categoryId
   const produtosSeed = produtos.map((produto) => ({
     name: produto.name,
     description: produto.description,
     price: produto.price,
-    image_src: produto.image_src,
+    imageSrc: produto.imageSrc,
     colors: produto.colors,
     sizes: produto.sizes,
-    category_id: categoriaMap[produto.category_name],
-    is_featured: produto.is_featured,
-    is_active: true,
+    categoryId: categoriaMap[produto.categoryName],
+    isFeatured: produto.isFeatured,
+    isActive: true,
   }));
 
   const { data, error } = await supabase
@@ -232,7 +240,7 @@ async function verificarDados() {
   console.log(`   📂 Categorias: ${categorias?.length || 0}`);
   console.log(`   🛍️ Produtos: ${produtos?.length || 0}`);
   console.log(
-    `   ⭐ Em destaque: ${produtos?.filter((p) => p.is_featured).length || 0}\n`
+    `   ⭐ Em destaque: ${produtos?.filter((p) => p.isFeatured).length || 0}\n`
   );
 
   if (categorias?.length > 0) {
@@ -243,7 +251,7 @@ async function verificarDados() {
   if (produtos?.length > 0) {
     console.log("\n🛍️ Produtos criados:");
     produtos.forEach((prod) => {
-      const destaque = prod.is_featured ? " ⭐" : "";
+      const destaque = prod.isFeatured ? " ⭐" : "";
       console.log(`   • ${prod.name} - ${prod.price}${destaque}`);
     });
   }
