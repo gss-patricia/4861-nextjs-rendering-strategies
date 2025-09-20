@@ -11,6 +11,8 @@ export async function GET() {
   try {
     const categories = await fetchCategories();
 
+    console.log("[server] /api/...");
+
     return NextResponse.json(categories, {
       headers: {
         "Cache-Control": "no-store", // didático: browser/CDN

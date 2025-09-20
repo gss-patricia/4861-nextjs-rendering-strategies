@@ -9,6 +9,11 @@ const inter = Inter({
   display: "swap",
 });
 
+export const metadata = {
+  title: "Loja de Roupas | Últimas Tendências",
+  description: "A loja virtual mais rápida do universo e região.",
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="pt-br">
