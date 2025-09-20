@@ -1,9 +1,12 @@
 import { fetchProducts } from "../../../../lib/data-layer";
 import { NextResponse } from "next/server";
 
+// Força execução dinâmica (sem cache do Next)
+export const dynamic = "force-dynamic";
+
 export async function GET(request) {
   try {
-    const { searchParams } = new URL(request.url);
+    const searchParams = request.nextUrl.searchParams;
 
     // Extrair parâmetros
     const limit = parseInt(searchParams.get("limit") || "10");
@@ -16,7 +19,7 @@ export async function GET(request) {
 
     return NextResponse.json(products, {
       headers: {
-        "Cache-Control": "no-store", // Sem cache na API (SSR gerencia dados frescos)
+        "Cache-Control": "no-store", // didático: browser/CDN
       },
     });
   } catch (error) {
