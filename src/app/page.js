@@ -49,3 +49,16 @@ export default async function Home() {
     </div>
   );
 }
+
+//Metadata para SEO
+export const metadata = {
+  title: "Meteora | Loja de Roupas",
+  description:
+    "Descubra as últimas tendencias em moda na Meteora. Camisetas, blusas, calçados em muito mais com qualidade e estilo.",
+  keywords: "moda, roupas, camisetas, bolsas, calçados, meteora",
+  openGraph: {
+    title: "Meteora - Loja de Roupas",
+    description: "As últimas tendências em moda você encontra aqui!",
+    type: "website",
+  },
+};
