@@ -7,6 +7,8 @@ export async function GET() {
   try {
     const categories = await fetchCategories();
 
+    console.log("[Server] ---->>>>> API roda do lado do server");
+
     return NextResponse.json(categories, {
       headers: {
         "Cache-Control": "no-store",
