@@ -2,11 +2,23 @@ import styles from "./page.module.css";
 import { Categorias } from "./components/Categorias";
 import { Produtos } from "./components/Produtos";
 import { fetchCategories, fetchProducts } from "../../lib/data-layer";
+import { unstable_cache } from "next/cache";
+
+// CATEGORIAS = SSG
+// PRODUTOS = ISR
+
+const getCachedProducts = unstable_cache(
+  () => fetchProducts({ limit: 6 }),
+  ["products-home"],
+  {
+    revalidate: 10,
+  }
+);
 
 export default async function Home() {
   const [categorias, produtos] = await Promise.all([
     fetchCategories(),
-    fetchProducts(),
+    getCachedProducts(),
   ]);
 
   console.log("A pagina é carregada no navegador");
