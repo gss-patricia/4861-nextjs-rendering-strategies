@@ -1,31 +1,25 @@
 "use client";
 
 import { Button } from "../components/Button";
-import { Badge } from "../components/Badge";
 import { Input } from "../components/Input";
 import { ProductCard } from "../components/ProductCard";
 import styles from "./search.module.css";
-import { useState } from "react";
+import { useSearch } from "@/hooks/useSearch";
 
 export default function SearchPage() {
-  // 🚀 Inicializando todos os states
-  const [query, setQuery] = useState("");
-  const [results, setResults] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [hasSearched, setHasSearched] = useState(false);
+  const {
+    query,
+    results,
+    loading,
+    error,
+    hasSearched,
+    hasResults,
+    isEmpty,
+    clear,
+    search,
+    setQuery,
+  } = useSearch();
 
-  // 🔄 Estados derivados
-  const hasResults = results.length > 0;
-  const isEmpty = hasSearched && !loading && !hasResults && !error;
-
-  // 🧹 Função para limpar busca
-  const clearSearch = () => {
-    setQuery("");
-    setResults([]);
-    setError(null);
-    setHasSearched(false);
-  };
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -44,7 +38,7 @@ export default function SearchPage() {
           />
           {query && (
             <Button
-              onClick={clearSearch}
+              onClick={clear}
               variant="ghost"
               size="small"
               className={styles.clearButton}
@@ -67,11 +61,7 @@ export default function SearchPage() {
         {error && (
           <div className={styles.error}>
             <span>⚠️ {error}</span>
-            <Button
-              onClick={() => setQuery(query)}
-              variant="danger"
-              size="small"
-            >
+            <Button onClick={() => search(query)} variant="danger" size="small">
               Tentar novamente
             </Button>
           </div>
