@@ -18,7 +18,7 @@ const Produto = ({ produto }) => {
           <Image
             width={350}
             height={422}
-            src={produto.image_src}
+            src={produto.imageSrc}
             alt={produto.name}
             className={styles.productImage}
           />

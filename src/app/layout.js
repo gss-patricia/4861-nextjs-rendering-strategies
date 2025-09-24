@@ -9,6 +9,11 @@ const inter = Inter({
   display: "swap",
 });
 
+export const metadata = {
+  title: "Meteora | Loja de Roupas",
+  description: "O melhor e-commerce do planeta e região.",
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="pt-br">
