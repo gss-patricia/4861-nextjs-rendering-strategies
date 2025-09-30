@@ -16,6 +16,8 @@ O projeto implementa um e-commerce completo com:
 - **API Routes**: Endpoints para produtos e busca
 - **Camada de Dados**: Abstração para interação com Supabase
 
+![Página home do projet listando categorias e produtos](https://raw.githubusercontent.com/gss-patricia/4861-nextjs-rendering-strategies/main/meteora-home.png)
+
 ## ✔️ Estratégias de Renderização Implementadas
 
 ### 🏗️ **SSG (Static Site Generation)**
