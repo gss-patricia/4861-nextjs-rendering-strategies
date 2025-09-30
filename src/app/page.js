@@ -22,7 +22,6 @@ export default async function Home() {
   ]);
 
   console.log("A pagina é carregada no navegador");
-
   return (
     <div className={styles.page}>
       <main className={styles.main}>
