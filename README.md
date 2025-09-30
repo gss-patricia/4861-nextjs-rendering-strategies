@@ -1,4 +1,4 @@
-![Thumbnail escrito React: explorando estratégias de renderização do Next.js](https://github.com/user-attachments/assets/86caa3ed-acc5-45e4-878e-3f344ac2604d)
+![Thumbnail escrito React: explorando estratégias de renderização do Next.js](https://github.com/gss-patricia/4861-nextjs-rendering-strategies/blob/main/thumbnail.png?raw=true)
 
 ![](https://img.shields.io/github/license/alura-cursos/android-com-kotlin-personalizando-ui)
 
